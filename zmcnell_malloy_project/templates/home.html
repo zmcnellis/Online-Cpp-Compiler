@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+
+    <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap -->
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+	<link href="{% static 'css/cover.css' %}" rel="stylesheet" media="screen">
+        <title>Program Visualizer</title>
+    </head>
+
+    <body>
+	<div class="site-wrapper">
+	<div class="site-wrapper-inner">
+        <div class="cover-container">
+	<div class="inner cover">
+	    <img src="{% static "computer.gif" %}" alt="A Picture" /><br /><br />
+            <h1 class="cover-heading">Compile and Execute C++ Online!</h1>
+            <p class="lead">This application is a prototype for the development of an online program visualizer. It is part of an ongoing research project at Clemson University, with a focus on a systematic experimental evaluation of a new approach to assisting early learners in developing a cognitive model of computation that supports future success in the academic curriculum.</p>
+            <p class="lead">
+              <a href="/c_compiler/" class="btn btn-lg btn-warning">Get Started!</a>
+            </p>
+          </div>
+
+
+	</div>
+	</div>
+	</div>
+
+
+	<script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    </body>
+
+</html>

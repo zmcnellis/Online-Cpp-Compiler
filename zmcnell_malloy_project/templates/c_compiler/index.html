@@ -2,17 +2,6 @@
 
 {% load static %}
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-63552922-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
 <html lang="en">
 
     <head>
@@ -22,16 +11,23 @@
 	<!-- Bootstrap -->
 	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
 	<link href="{% static 'css/cover.css' %}" rel="stylesheet" media="screen">
-        <title>Program Visualizer</title>
+        <title>Program Evaluator</title>
     </head>
 
     <body>
 	<div class="site-wrapper">
 	<div class="site-wrapper-inner">
 	<div class="cover-container">
-            <h1>Compile and Execute C++ Online!</h1>
+            <h1>Evaluate Software Quality Online!</h1>
 
 	    <br /><br />
+
+        <p>Input Language:&nbsp; 
+        <label class="radio-inline"><input type="radio" name="optradio">C</label>
+        <label class="radio-inline"><input checked="checked" type="radio" name="optradio">C++</label>
+
+        <label class="radio-inline"><input type="radio" name="optradio">Python</label>
+        </p>
 
 <form id="code_form" method="post" action="">    {% csrf_token %}
 	    <h3 class="pull-left"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
@@ -40,12 +36,17 @@ Enter code here</h3>
     {% for field in form %}
         {{ field }}
     {% endfor %}
-        <!--<textarea class="form-control" rows="5" name="mytextbox"></textarea>
+        <!--<textarea class="form-control" rows="5" name="mytextbox"></textarea> 
 -->
+	    <br /><br />
+
+            <h3 class="text-left"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> Or specify a file</h3>
+            <input type="file" name="datafile" size="40">
+
 	    <br /><br />
 	    <h3 class="pull-left"><span class="glyphicon glyphicon-console" aria-hidden="true"></span>
 Terminal output</h3>
-            <textarea class="form-control" rows="3" readonly>{{terminal_output}}</textarea>
+            <textarea class="form-control" rows="3" readonly>{{terminal_output}}</textarea> 
 	    <br /><br />
 
   <div class="btn-group pull-left" role="group">

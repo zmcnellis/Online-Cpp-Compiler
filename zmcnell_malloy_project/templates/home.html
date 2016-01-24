@@ -2,17 +2,6 @@
 
 {% load static %}
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-63552922-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
 <html lang="en">
 
     <head>
@@ -22,7 +11,7 @@
 	<!-- Bootstrap -->
 	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
 	<link href="{% static 'css/cover.css' %}" rel="stylesheet" media="screen">
-        <title>Program Visualizer</title>
+        <title>Program Evaluator</title>
     </head>
 
     <body>
@@ -31,8 +20,8 @@
         <div class="cover-container">
 	<div class="inner cover">
 	    <img src="{% static "computer.gif" %}" alt="A Picture" /><br /><br />
-            <h1 class="cover-heading">Compile and Execute C++ Online!</h1>
-            <p class="lead">This application is a prototype for the development of an online program visualizer. It is part of an ongoing research project at Clemson University, with a focus on a systematic experimental evaluation of a new approach to assisting early learners in developing a cognitive model of computation that supports future success in the academic curriculum.</p>
+            <h1 class="cover-heading">Evaluate Software Quality Online!</h1>
+            <p class="lead">This application is a prototype for the development of an online code quality evaluator. It is part of an ongoing research project at Clemson University, with a focus on assisting early learners in developing a cognitive model of computation that supports future success in the academic curriculum. This effort is motivated through the construction of a generic program representation for automated metric computation.</p>
             <p class="lead">
               <a href="/c_compiler/" class="btn btn-lg btn-warning">Get Started!</a>
             </p>

@@ -29,7 +29,7 @@ STATICFILES_DIRS = (
 SECRET_KEY = 'vawyt!mm$y1x+#&0bm_m&lzhx&1sohczwv-uuk)mei_hetk2@r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 

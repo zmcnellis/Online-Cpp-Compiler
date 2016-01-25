@@ -4,30 +4,51 @@
 
 <html lang="en">
 
-    <head>
+  <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Bootstrap -->
 	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
 	<link href="{% static 'css/cover.css' %}" rel="stylesheet" media="screen">
-        <title>Program Evaluator</title>
-    </head>
+  <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+  <title>Program Evaluator</title>
+  </head>
 
-    <body>
+  <body>
+
 	<div class="site-wrapper">
 	<div class="site-wrapper-inner">
 	<div class="cover-container">
-            <h1>Evaluate Software Quality Online!</h1>
+  <h1>Evaluate Software Quality Online!</h1>
 
-	    <br /><br />
+  <br /><br />
 
-        <p>Input Language:&nbsp; 
-        <label class="radio-inline"><input type="radio" name="optradio">C</label>
-        <label class="radio-inline"><input checked="checked" type="radio" name="optradio">C++</label>
+  <p>
+    Input Language:&nbsp; 
+    <label class="radio-inline"><input type="radio" name="optradio" value="C" onclick="setRadio()">C</label>
+    <label class="radio-inline"><input checked="checked" type="radio" name="optradio" value="C++" onclick="setRadio()">C++</label>
 
-        <label class="radio-inline"><input type="radio" name="optradio">Python</label>
-        </p>
+    <label class="radio-inline"><input type="radio" name="optradio" value="Python" onclick="setRadio()">Python</label>
+  </p>
+
+  <script type="text/javascript">
+    function setRadio() {
+      var radio = $('input[name="optradio"]:checked').val();
+      if (radio === 'C') {
+        //alert('C');
+        $('#compile').prop('disabled', false);
+      }
+      else if (radio === 'C++') {
+        //alert('C++');
+        $('#compile').prop('disabled', false);
+      }
+      else {
+        //alert('Python');
+        $('#compile').prop('disabled', true);
+      }
+    }
+  </script>
 
 <form id="code_form" method="post" action="">    {% csrf_token %}
 	    <h3 class="pull-left"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
@@ -59,7 +80,7 @@ Terminal output</h3>
 
 <div class="btn-group pull-right" role="group">
   <div class="btn-group" role="group">
-    <button type="submit" class="btn btn-info" name="compile">Compile</button>
+    <button id="compile" type="submit" class="btn btn-info" name="compile">Compile</button>
   </div>
   <div class="btn-group pull-right" role="group">
     <button type="submit" class="btn btn-success" name="execute">Execute</button>
@@ -91,9 +112,9 @@ Terminal output</h3>
 	</div>
 	</div>
 
-	<script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+	
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-    </body>
+  </body>
 
 </html>

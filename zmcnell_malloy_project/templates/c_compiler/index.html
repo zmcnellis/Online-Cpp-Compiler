@@ -5,115 +5,104 @@
 <html lang="en">
 
   <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Bootstrap -->
-	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
-	<link href="{% static 'css/cover.css' %}" rel="stylesheet" media="screen">
-  <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
-  <title>Program Evaluator</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/code.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'django_ace/widget.css' %}" rel="stylesheet" media="screen">
+    <title>Program Evaluator</title>
   </head>
 
   <body>
 
-	<div class="site-wrapper">
-	<div class="site-wrapper-inner">
-	<div class="cover-container">
+  <div class="site-wrapper">
+  <div class="site-wrapper-inner">
+  <div class="cover-container">
   <h1>Evaluate Software Quality Online!</h1>
 
-  <br /><br />
+  <br/><br/>
 
-  <p>
+  <p class="header">
     Input Language:&nbsp; 
-    <label class="radio-inline"><input type="radio" name="optradio" value="C" onclick="setRadio()">C</label>
     <label class="radio-inline"><input checked="checked" type="radio" name="optradio" value="C++" onclick="setRadio()">C++</label>
 
     <label class="radio-inline"><input type="radio" name="optradio" value="Python" onclick="setRadio()">Python</label>
   </p>
 
+
+
+  <form id="code_form" method="post" action="">    
+    {% csrf_token %}
+
+    <!-- ENTER CODE HERE -->
+    <h3 class="pull-left"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Enter code here</h3>
+    {% for field in form %}
+      {{ field }}
+    {% endfor %}
+
+    <br/><br/>
+
+    <!-- OR SPECIFY A FILE -->
+    <h3 class="text-left"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> Or specify a file</h3>
+    <input id="fileUpload" type="file" name="datafile" size="40">
+
+    <br/><br/>
+
+    <!-- TERMINAL OUTPUT -->
+    <h3 class="pull-left"><span class="glyphicon glyphicon-console" aria-hidden="true"></span> Terminal output</h3>
+    <textarea style="border-radius: 0px" class="form-control" rows="3" readonly>{{terminal_output}}</textarea> 
+
+    <br/><br/>
+
+    <!-- GO BACK -->
+    <div class="btn-group pull-left" role="group">
+      <a type="button" href="/" class="btn btn-warning" role="button">
+        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Go Back
+      </a>
+    </div>
+
+    <!-- COMPILE / EXECUTE -->
+    <div class="btn-group pull-right" role="group">
+      <div class="btn-group" role="group">
+        <button id="compile" type="submit" class="btn btn-info" name="compile">Compile</button>
+      </div>
+      <div class="btn-group pull-right" role="group">
+        <button type="submit" class="btn btn-success" name="execute">Execute</button>
+      </div>
+    </div>
+
+  </form>
+
+  <br/><br/>
+
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <script src="{% static 'django_ace/ace/ace.js' %}"></script>
+  <script src="{% static 'django_ace/ace/mode-c_cpp.js' %}"></script>
+  <script src="{% static 'django_ace/ace/theme-clouds.js' %}"></script>
+  <script src="{% static 'django_ace/widget.js' %}"></script>
+  <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
   <script type="text/javascript">
+    $('#fileUpload').change(function() {
+      alert($('#fileUpload').val());
+    });
     function setRadio() {
       var radio = $('input[name="optradio"]:checked').val();
-      if (radio === 'C') {
-        //alert('C');
-        $('#compile').prop('disabled', false);
-      }
-      else if (radio === 'C++') {
-        //alert('C++');
+      if (radio === 'C++') {
         $('#compile').prop('disabled', false);
       }
       else {
-        //alert('Python');
         $('#compile').prop('disabled', true);
       }
     }
   </script>
-
-<form id="code_form" method="post" action="">    {% csrf_token %}
-	    <h3 class="pull-left"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-Enter code here</h3>
-
-    {% for field in form %}
-        {{ field }}
-    {% endfor %}
-        <!--<textarea class="form-control" rows="5" name="mytextbox"></textarea> 
--->
-	    <br /><br />
-
-            <h3 class="text-left"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> Or specify a file</h3>
-            <input type="file" name="datafile" size="40">
-
-	    <br /><br />
-	    <h3 class="pull-left"><span class="glyphicon glyphicon-console" aria-hidden="true"></span>
-Terminal output</h3>
-            <textarea class="form-control" rows="3" readonly>{{terminal_output}}</textarea> 
-	    <br /><br />
-
-  <div class="btn-group pull-left" role="group">
-    <a type="button" href="/" class="btn btn-warning" role="button">
-	<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Go Back
-    </a>
-  </div>
-
-
-
-<div class="btn-group pull-right" role="group">
-  <div class="btn-group" role="group">
-    <button id="compile" type="submit" class="btn btn-info" name="compile">Compile</button>
-  </div>
-  <div class="btn-group pull-right" role="group">
-    <button type="submit" class="btn btn-success" name="execute">Execute</button>
-  </div>
-</div>
-
-</form>
-
-<!--
-<form id="code_form" method="post" action="">
-    {% csrf_token %}
-    {% for field in form %}
-        {{ field }}
-    {% endfor %}
-    <button type="submit">Submit</button>
-</form>
--->
-
-
-
-	    <br /><br />
-
-          </div>
-
-
-	</div>
-
-
-	</div>
-	</div>
-
-	
-	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 
   </body>
 

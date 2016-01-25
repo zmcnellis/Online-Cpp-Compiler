@@ -3,28 +3,30 @@ from django.shortcuts import render_to_response
 from django.core.files import File
 from django.http import HttpResponse
 from django import forms
+from django_ace import AceWidget
 import subprocess
 import os
 from os.path import join
 import zmcnell_malloy_project
 
-class MyForm(forms.Form):
-    a = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}))
+class EditorForm(forms.Form):
+    text = forms.CharField(widget=AceWidget(mode='c_cpp', theme='clouds', showprintmargin=False))
+    #text = forms.CharField(widget=CodeMirrorEditor(options={'mode': 'css'}))
 
 def index(request):
     context = RequestContext(request)
     terminal_output = '$ '
 
     if request.method=='POST':
-        form = MyForm(request.POST)
+        form = EditorForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            a = cd.get('a')
+            text = cd.get('text')
 	    if 'compile' in request.POST:
                 #print("COMPILING...\n" + a + "\n")
 		with open('media/myprogram.cpp', 'w+') as fd:
 		    myfile = File(fd)
-                    myfile.write(a)
+                    myfile.write(text)
                 myfile.closed
                 fd.closed
                 proc = subprocess.Popen(['g++', 'media/myprogram.cpp', '-o', 'media/myprogram'], stderr=subprocess.PIPE)
@@ -39,7 +41,7 @@ def index(request):
                 #print("OUTPUT...\n" + terminal_output)
 
     else:
-        form = MyForm()
+        form = EditorForm()
 
     context_dict = {'form': form, 'terminal_output': terminal_output}
 
